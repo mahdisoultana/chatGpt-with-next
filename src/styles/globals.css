@@ -25,3 +25,7 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+/* hide the default controls audio::-webkit-media-controls {
+  display: none !important;
+} */
