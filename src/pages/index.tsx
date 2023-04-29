@@ -4,10 +4,22 @@ import { useMessages } from '@/hooks/store';
 import { Message as MessageType } from '@/hooks/types';
 import { useCallback } from 'react';
 
+async function requestMessage(request: MessageType) {
+  if (request.sender == 'me') {
+    //we need to ask chagpt with this prompt message
+    console.log(
+      'we need to ask chagpt with this prompt message🐱‍🏍🐱‍🏍',
+      `''` + request.message + `''`,
+    );
+    // return fetch(...).then(res=>res)
+  }
+}
 function Home() {
   const { messages, setMessages } = useMessages();
   const onSubmit = useCallback((msg: MessageType) => {
     setMessages(msg);
+    requestMessage(msg);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
