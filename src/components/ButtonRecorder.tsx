@@ -1,38 +1,69 @@
-import { useEffect, useState } from 'react';
+import { Message } from '@/hooks/types';
+import { useRef } from 'react';
 import { BsFillMicFill } from 'react-icons/bs';
-import { ReactMediaRecorder } from 'react-media-recorder';
+import { useReactMediaRecorder } from 'react-media-recorder';
 
-function ButtonRecorder() {
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-  return isClient ? (
-    <ReactMediaRecorder
-      audio
-      render={({ status, startRecording, stopRecording, mediaBlobUrl }) => {
-        if (mediaBlobUrl) {
-          // Assuming you have a Blob object called "audioBlob"
-
-          // Create an audio element with the Blob URL as the source
-          const audio = new Audio(mediaBlobUrl);
-          console.log(audio, mediaBlobUrl);
-        }
-        return (
-          <>
-            <button
-              className={` w-[60px] h-[60px]  mx-2 rounded-full flex-shrink-0 flex items-center justify-center bg-gradient-to-tl from-blue-400 to-green-500 ${
-                status == 'recording' && 'animate-pulse'
-              }`}
-              onClick={status == 'recording' ? stopRecording : startRecording}
-            >
-              <BsFillMicFill className=" text-3xl text-white " />
-            </button>
-          </>
-        );
-      }}
-    />
-  ) : null;
+function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
+  const urlRef = useRef('');
+  const { status, startRecording, stopRecording } = useReactMediaRecorder({
+    audio: true,
+    askPermissionOnMount: true,
+    onStop(blobUrl) {
+      if (
+        typeof blobUrl == 'string' &&
+        blobUrl.length > 0 &&
+        blobUrl !== urlRef.current
+      ) {
+        onSubmit({
+          message: blobUrl,
+          type: 'audio',
+          sender: 'me',
+        });
+        urlRef.current = blobUrl;
+        const audio = new Audio(blobUrl);
+        console.log(audio);
+      }
+    },
+  });
+  // return (
+  //   <ReactMediaRecorder
+  //     audio
+  //     render={({ status, startRecording, stopRecording, mediaBlobUrl }) => {
+  //       if (
+  //         typeof mediaBlobUrl == 'string' &&
+  //         mediaBlobUrl.length > 0 &&
+  //         mediaBlobUrl !== urlRef.current
+  //       ) {
+  //         onSubmit({
+  //           message: mediaBlobUrl,
+  //           type: 'audio',
+  //           sender: 'me',
+  //         });
+  //         urlRef.current = mediaBlobUrl;
+  //         const audio = new Audio(mediaBlobUrl);
+  //         console.log(audio);
+  //       }
+  return (
+    <>
+      <button
+        className={` w-full h-full  rounded-full flex-shrink-0 flex items-center justify-center   ${
+          status == 'recording' && 'animate-pulse'
+        }`}
+        onClick={() => {
+          if (status == 'recording') {
+            stopRecording();
+          } else {
+            startRecording();
+          }
+        }}
+      >
+        <BsFillMicFill className=" text-3xl text-blue-500 " />
+      </button>
+    </>
+  );
+  //     }}
+  //   />
+  // );
 }
 
 export default ButtonRecorder;
