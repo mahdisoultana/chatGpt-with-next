@@ -2,7 +2,9 @@ import Form from '@/components/form';
 import Message from '@/components/message';
 import { useMessages } from '@/hooks/store';
 import { Message as MessageType } from '@/hooks/types';
-import { useCallback } from 'react';
+import axios from 'axios';
+import { GetServerSideProps } from 'next';
+import { useCallback, useEffect } from 'react';
 
 async function requestMessage(request: MessageType) {
   if (request.sender == 'me') {
@@ -14,7 +16,13 @@ async function requestMessage(request: MessageType) {
     // return fetch(...).then(res=>res)
   }
 }
-function Home() {
+function Home(props: GetServerSideProps) {
+  useEffect(() => {
+    axios.get('/api/chatgpt').then((res) => {
+      console.log(res.data);
+    });
+  }, []);
+  // console.log(props);
   const { messages, setMessages } = useMessages();
   const onSubmit = useCallback((msg: MessageType) => {
     setMessages(msg);
@@ -32,6 +40,13 @@ function Home() {
       </article>
     </div>
   );
+}
+export async function getServerSideProps() {
+  return {
+    props: {
+      response: 'Hello',
+    },
+  };
 }
 
 export default Home;
