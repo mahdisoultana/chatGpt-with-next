@@ -4,7 +4,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const data = await generateText('how are you today');
-  console.log(data);
-  res.status(200).json({ message: data });
+  const resData = await generateText();
+  // console.log({ data });
+  res.status(200).json({ message: resData?.data });
 }

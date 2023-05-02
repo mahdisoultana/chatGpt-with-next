@@ -1,29 +1,34 @@
-const axios = require('axios');
+// import * as openai from 'openai';
+import { Configuration, OpenAIApi } from 'openai';
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+// OpenAI instance creation
+const openai = new OpenAIApi(configuration);
 
-const apiKey = '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';
-
-async function generateText(message: string) {
+async function generateText() {
   try {
-    const response = await axios.post(
-      'https://api.openai.com/v1/engines/davinci-codex/completions',
-      {
-        prompt: message,
-        max_tokens: 50,
-        n: 1,
-        stop: ['\n'],
-      },
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
-        },
-      },
-    );
-
-    console.log(response.data.choices[0].text);
-    return response.data.choices[0].text;
-  } catch (error) {
-    console.error(error);
+    const response = await openai.createCompletion({
+      model: 'davinci',
+      prompt: 'Hi how are you today ?',
+      max_tokens: 7,
+      temperature: 0,
+      top_p: 1,
+      n: 1,
+      stream: false,
+      logprobs: null,
+      stop: '\n',
+    });
+    // console.log(response);
+    return response;
+  } catch (error: any) {
+    console.log('errror !!!!!');
+    if (error.response) {
+      console.error(error.response.status);
+      console.error(error.response.data);
+    } else {
+      console.error(error.message);
+    }
   }
 }
 
