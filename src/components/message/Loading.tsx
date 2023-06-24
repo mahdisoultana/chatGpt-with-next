@@ -1,63 +1,60 @@
 import { motion } from 'framer-motion';
 import { Message } from '@/hooks/types';
 import Image from 'next/image';
-function Message({ i, item }: { i: number; item: Message }) {
+function MessageLoading() {
   const isMe = (i: 'me' | 'chatGPT') => i == 'me';
   const order = {
     right: ' rounded-tr-none',
     left: ' rounded-tl-none order-1',
   };
-
+  // usePlayAudio();
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.3, duration: 0.3 } }}
-      className={`flex  ${
-        isMe(item.sender) ? 'justify-start' : 'justify-end'
-      }  items-start `}
-      key={i}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      layout
+      variants={{
+        animate: { opacity: 1, y: 0 },
+        initial: { opacity: 0, y: -100 },
+        exit: { opacity: 0, y: -100 },
+      }}
+      className="flex  justify-end  items-start "
     >
-      {item.type == 'text' ? (
-        <p
-          className={` ${
-            isMe(item.sender) ? order.left : order.right
-          } rounded-xl pb-4 text-sm tracking-wide    p-4 py-2  bg-gray-800`}
-        >
-          {item.message}
-        </p>
-      ) : (
-        <audio
-          controls
-          autoPlay={false}
-          preload="metadata"
-          src={item.message}
-          className={`${
-            isMe(item.sender) ? order.left : order.right
-          } block bg-gray-800 rounded-xl  text-md  p-2 w-full  `}
-        ></audio>
-      )}
+      <p
+        className={` ${
+          isMe('chatGPT') ? order.left : order.right
+        } rounded-xl h-[40px] text-sm tracking-wide    p-1 pl-3 w-[80px] flex  items-center justify-center bg-gray-800`}
+      >
+        {[1, 2, 3].map((_, index) => (
+          <motion.span
+            key={index}
+            animate={{
+              y: [5, -5],
+              transition: {
+                duration: 1,
+                delay: index * 0.3,
+                repeat: Infinity,
+                repeatType: 'mirror',
+              },
+            }}
+            className="w-[15px] h-[15px]  rounded-full bg-gray-700 block mr-[7px] flex-shrink-0"
+          />
+        ))}
+      </p>
+
       <span
         className={` block w-10  h-10 ${
-          isMe(item.sender) ? 'rounded-md' : 'rounded-full'
+          isMe('chatGPT') ? 'rounded-md' : 'rounded-full'
         }  flex-shrink-0 mx-2`}
       >
-        {isMe(item.sender) ? (
-          <Image
-            width={100}
-            height={100}
-            src="/mahdi.jpg"
-            className="rounded-full"
-            alt="profile"
-          />
-        ) : (
-          gptIcon
-        )}
+        {gptIcon}
       </span>
     </motion.div>
   );
 }
 
-export default Message;
+export default MessageLoading;
 
 const gptIcon = (
   <svg
@@ -77,3 +74,26 @@ const gptIcon = (
     />
   </svg>
 );
+
+import { useEffect } from 'react';
+import { Howl, Howler } from 'howler';
+function usePlayAudio() {
+  useEffect(() => {
+    // Create a new Howl instance
+    const sound = new Howl({
+      src: ['path/sound.mp3'],
+      autoplay: true,
+      loop: true,
+      volume: 0.5,
+      rate: 0.45,
+    });
+
+    // Start playing the sound
+    sound.play();
+
+    // Clean up function to stop the sound when the component unmounts
+    return () => {
+      sound.stop();
+    };
+  }, []);
+}

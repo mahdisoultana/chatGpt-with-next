@@ -20,7 +20,7 @@ function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
           setText('');
         }
       }}
-      className="absolute bottom-0 left-0 bg-gray-100 text-gray-900 h-[70px] w-full flex items-center xl:rounded-t-md overflow-hidden"
+      className="fixed bottom-0 left-0 bg-gray-100 text-gray-900 h-[60px] w-full flex items-center xl:rounded-t-md overflow-hidden"
     >
       <input
         className="w-full outline-none  h-full bg-gray-100  p-4 text-lg"
