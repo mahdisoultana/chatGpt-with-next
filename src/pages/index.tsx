@@ -1,6 +1,7 @@
 import Form from '@/components/form';
 import Message from '@/components/message';
 import MessageLoading from '@/components/message/Loading';
+import AppContext from '@/context/ContextProvider';
 import { useMessages } from '@/hooks/store';
 import { Message as MessageType } from '@/hooks/types';
 import axios from 'axios';
@@ -34,18 +35,20 @@ function Home(props: GetServerSideProps) {
   }, []);
 
   return (
-    <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center text-white">
-      <article className="relative max-w-xl w-full min-h-screen rounded  m-auto py-6 px-2 space-y-2 pb-24">
-        {messages.map((item, i) => (
-          <Message i={i} item={item} key={i} />
-        ))}
+    <AppContext>
+      <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center text-white">
+        <article className="relative max-w-xl w-full min-h-screen rounded  m-auto py-6 px-2 space-y-2 pb-24">
+          {messages.map((item, i) => (
+            <Message i={i} item={item} key={i} />
+          ))}
 
-        <AnimatePresence>
-          {status == 'loading' && <MessageLoading />}
-        </AnimatePresence>
-        <Form onSubmit={onSubmit} />
-      </article>
-    </div>
+          <AnimatePresence>
+            {status == 'loading' && <MessageLoading />}
+          </AnimatePresence>
+          <Form onSubmit={onSubmit} />
+        </article>
+      </div>
+    </AppContext>
   );
 }
 export async function getServerSideProps() {

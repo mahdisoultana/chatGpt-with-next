@@ -1,3 +1,4 @@
+import { useSpeech } from '@/context/ContextProvider';
 import { Message } from '@/hooks/types';
 import { motion } from 'framer-motion';
 import { useRef } from 'react';
@@ -6,15 +7,21 @@ import { useReactMediaRecorder } from 'react-media-recorder';
 
 function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
   const urlRef = useRef('');
+  const { startListening, stopListening, listening, transcript } = useSpeech();
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     audio: true,
-    // askPermissionOnMount: true,
+
+    onStart() {
+      console.log('start');
+      startListening();
+    },
     onStop(blobUrl) {
       if (
         typeof blobUrl == 'string' &&
         blobUrl.length > 0 &&
         blobUrl !== urlRef.current
       ) {
+        stopListening();
         onSubmit({
           message: blobUrl,
           type: 'audio',

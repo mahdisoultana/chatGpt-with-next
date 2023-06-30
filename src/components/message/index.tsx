@@ -11,7 +11,7 @@ function Message({ i, item }: { i: number; item: Message }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { delay: 0.3, duration: 0.3 } }}
+      animate={{ opacity: 1, transition: { duration: 0.3 } }}
       className={`flex  ${
         isMe(item.sender) ? 'justify-start' : 'justify-end'
       }  items-start `}

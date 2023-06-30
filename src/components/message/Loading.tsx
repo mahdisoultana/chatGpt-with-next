@@ -15,9 +15,15 @@ function MessageLoading() {
       exit="exit"
       layout
       variants={{
-        animate: { opacity: 1, y: 0 },
-        initial: { opacity: 0, y: -100 },
-        exit: { opacity: 0, y: -100 },
+        animate: {
+          opacity: 1,
+          y: 0,
+          transition: {
+            delay: 1,
+          },
+        },
+        initial: { opacity: 0, y: -5 },
+        exit: { opacity: 0, y: -5 },
       }}
       className="flex  justify-end  items-start "
     >
