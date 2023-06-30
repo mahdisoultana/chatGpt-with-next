@@ -1,34 +1,37 @@
 // import * as openai from 'openai';
 import { Configuration, OpenAIApi } from 'openai';
+
+import axios from 'axios';
+import dotenv from 'dotenv';
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
-// OpenAI instance creation
-const openai = new OpenAIApi(configuration);
 
-async function generateText() {
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const API_BASE_URL = 'https://api.openai.com/v1/engines';
+
+async function generateText(message = '') {
   try {
-    const response = await openai.createCompletion({
-      model: 'davinci',
-      prompt: 'Hi how are you today ?',
-      max_tokens: 7,
-      temperature: 0,
-      top_p: 1,
-      n: 1,
-      stream: false,
-      logprobs: null,
-      stop: '\n',
-    });
-    // console.log(response);
-    return response;
-  } catch (error: any) {
-    console.log('errror !!!!!');
-    if (error.response) {
-      console.error(error.response.status);
-      console.error(error.response.data);
-    } else {
-      console.error(error.message);
-    }
+    const response = await axios.post(
+      `${API_BASE_URL}/text-davinci-003/completions`,
+      {
+        prompt: message,
+        max_tokens: 50,
+      },
+      {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${OPENAI_API_KEY}`,
+        },
+      },
+    );
+    const answer = response.data.choices[0].text.trim();
+    return answer;
+  } catch (error) {
+    console.error('Error:', error);
+
+    return { error: 'An error occurred' };
   }
 }
 

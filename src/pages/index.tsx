@@ -23,10 +23,8 @@ async function requestMessage(request: MessageType) {
     });
   }
 
-  console.log('🟦 response api');
-  console.log(res.data);
-
-  return { response: 'Hello Mahdi fast -> forward return ' };
+  // {type: 'audio', text: 'hello Matthew how are you', audio:vaule}
+  return res.data;
 }
 type StatusType = 'idle' | 'loading' | 'error' | 'success';
 function Home(props: GetServerSideProps) {
@@ -39,10 +37,19 @@ function Home(props: GetServerSideProps) {
     try {
       console.log(msg.transcript);
       setStatus('loading');
+      let message = null;
+      if (msg.type == 'audio') {
+        const res = await requestMessage(msg);
+        console.log('🟩  api response');
+        console.log({ data: res.message });
+        const blob = new Blob([res.message], { type: 'audio/mpeg' });
+        const url = URL.createObjectURL(blob);
+        message = url;
+      } else {
+        message = 'hello world';
+      }
 
-      const data = await requestMessage(msg);
-
-      setMessages({ type: 'text', message: data.response, sender: 'chatGPT' });
+      setMessages({ type: msg.type, message, sender: 'chatGPT' });
       setStatus('success');
     } catch (error) {
       setStatus('error');

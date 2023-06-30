@@ -27,14 +27,14 @@ function Message({ i, item }: { i: number; item: Message }) {
         </p>
       ) : (
         <audio
-          controls
-          autoPlay={false}
           preload="metadata"
-          src={item.message}
+          controls
           className={`${
             isMe(item.sender) ? order.left : order.right
           } block bg-gray-800 rounded-xl  text-md  p-2 w-full  `}
-        ></audio>
+        >
+          <source src={item.message} type="audio/mpeg" />
+        </audio>
       )}
       <span
         className={` block w-10  h-10 ${

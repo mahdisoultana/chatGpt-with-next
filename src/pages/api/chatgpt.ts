@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import dotenv from 'dotenv';
+import generateVoice from '@/controls/generateVoice';
 
 dotenv.config();
 
@@ -13,10 +14,20 @@ export default async function handler(
 ) {
   const { message, type } = req.body;
   console.log({ message });
-  setTimeout(() => {
-    res.status(200).json({ type, response: 'hello Mahdi' });
-  }, 1000);
+  try {
+    if (type == 'audio') {
+      const voiceResponse = await generateVoice('Hey Mahdi how are you ?');
+      //@ts-ignore
 
+      res.status(200).json({ type, message: voiceResponse });
+    }
+
+    if (type == 'text') {
+      res.status(200).json({ type, message });
+    }
+  } catch (error) {
+    console.log({ error });
+  }
   // try {
   //   const response = await axios.post(
   //     `${API_BASE_URL}/text-davinci-003/completions`,
