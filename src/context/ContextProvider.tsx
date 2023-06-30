@@ -11,20 +11,22 @@ function AppContext({ children }: { children: React.ReactNode }) {
   } = useSpeechRecognition();
 
   const stopListening = React.useCallback((): void => {
-    SpeechRecognition.stopListening();
     resetTranscript();
+    SpeechRecognition.stopListening();
   }, []);
   const startListening = React.useCallback((): void => {
-    SpeechRecognition.startListening();
+    SpeechRecognition.startListening({
+      continuous: true,
+      language: 'en-GB',
+    });
   }, []);
-  console.log(transcript);
+
   return (
     <appContext.Provider
       value={{
         startListening,
         stopListening,
         transcript,
-
         listening,
       }}
     >

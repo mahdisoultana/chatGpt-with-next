@@ -4,15 +4,21 @@ import { motion } from 'framer-motion';
 import { useRef } from 'react';
 import { BsFillMicFill } from 'react-icons/bs';
 import { useReactMediaRecorder } from 'react-media-recorder';
-
+import React from 'react';
 function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
   const urlRef = useRef('');
+  const MsgRef = useRef('');
   const { startListening, stopListening, listening, transcript } = useSpeech();
+
+  React.useEffect(() => {
+    if (listening) MsgRef.current = transcript;
+  }, [transcript]);
+
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     audio: true,
 
-    onStart() {
-      console.log('start');
+    onStart: () => {
+      MsgRef.current = '';
       startListening();
     },
     onStop(blobUrl) {
@@ -21,12 +27,13 @@ function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
         blobUrl.length > 0 &&
         blobUrl !== urlRef.current
       ) {
-        stopListening();
         onSubmit({
           message: blobUrl,
+          transcript: MsgRef.current,
           type: 'audio',
           sender: 'me',
         });
+        stopListening();
         urlRef.current = blobUrl;
       }
     },

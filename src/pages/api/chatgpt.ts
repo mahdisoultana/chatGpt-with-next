@@ -11,11 +11,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-  const { message } = req.body;
+  const { message, type } = req.body;
   console.log({ message });
   setTimeout(() => {
-    res.status(200).json({ response: 'hello Mahdi' });
-  }, 5000);
+    res.status(200).json({ type, response: 'hello Mahdi' });
+  }, 1000);
 
   // try {
   //   const response = await axios.post(
