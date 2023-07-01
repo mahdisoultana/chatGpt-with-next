@@ -4,10 +4,8 @@ import dotenv from 'dotenv';
 import generateVoice from '@/controls/generateVoice';
 import fs from 'fs/promises';
 import path from 'path';
+import generateAnswer from '@/controls/generateAnswer';
 dotenv.config();
-
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const API_BASE_URL = 'https://api.openai.com/v1/engines';
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,9 +13,12 @@ export default async function handler(
 ) {
   const { message, type } = req.body;
   console.log({ message });
+
   try {
+    const answer = await generateAnswer(message);
+
     if (type == 'audio') {
-      const file = await generateVoice(message);
+      const file = await generateVoice(answer);
 
       //@ts-ignore
 
@@ -25,30 +26,9 @@ export default async function handler(
     }
 
     if (type == 'text') {
-      res.status(200).json({ type, message });
+      res.status(200).json({ type, message: answer });
     }
   } catch (error) {
     console.log({ error });
   }
-  // try {
-  //   const response = await axios.post(
-  //     `${API_BASE_URL}/text-davinci-003/completions`,
-  //     {
-  //       prompt: message,
-  //       max_tokens: 50,
-  //     },
-  //     {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${OPENAI_API_KEY}`,
-  //       },
-  //     },
-  //   );
-
-  //   const answer = response.data.choices[0].text.trim();
-  //   res.status(200).json({ answer });
-  // } catch (error) {
-  //   console.error('Error:', error);
-  //   res.status(500).json({ error: 'An error occurred' });
-  // }
 }

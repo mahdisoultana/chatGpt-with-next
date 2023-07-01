@@ -54,7 +54,13 @@ function MessageLoading() {
           isMe('chatGPT') ? 'rounded-md' : 'rounded-full'
         }  flex-shrink-0 mx-2`}
       >
-        {gptIcon}
+        <Image
+          width={100}
+          height={100}
+          src="/jane.jpg"
+          className="h-full w-full rounded-full"
+          alt="profile"
+        />
       </span>
     </motion.div>
   );

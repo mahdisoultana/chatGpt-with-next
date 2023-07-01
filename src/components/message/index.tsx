@@ -36,6 +36,9 @@ function Message({ i, item }: { i: number; item: Message }) {
         <audio
           preload="metadata"
           controls
+          onClick={(e) => {
+            e.preventDefault();
+          }}
           className={`${
             isMe(item.sender) ? order.left : order.right
           } block bg-gray-800 rounded-xl  text-md  p-2 w-full  `}
@@ -57,7 +60,13 @@ function Message({ i, item }: { i: number; item: Message }) {
             alt="profile"
           />
         ) : (
-          gptIcon
+          <Image
+            width={100}
+            height={100}
+            src="/jane.jpg"
+            className="h-full w-full rounded-full"
+            alt="profile"
+          />
         )}
       </span>
     </motion.div>

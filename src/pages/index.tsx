@@ -1,3 +1,4 @@
+import React from 'react';
 import Form from '@/components/form';
 import Message from '@/components/message';
 import MessageLoading from '@/components/message/Loading';
@@ -29,9 +30,11 @@ async function requestMessage(request: MessageType) {
 type StatusType = 'idle' | 'loading' | 'error' | 'success';
 function Home(props: GetServerSideProps) {
   const { messages, setMessages } = useMessages();
-
+  const containerRef = React.useRef<any>(null);
   const [status, setStatus] = useState<StatusType>('idle');
-
+  useEffect(() => {
+    containerRef.current.scrollTop = containerRef.current.scrollHeight;
+  }, [status]);
   const onSubmit = useCallback(async (msg: MessageType) => {
     setMessages(msg);
 
@@ -40,17 +43,16 @@ function Home(props: GetServerSideProps) {
 
       let message = null;
 
-      console.log(msg);
-      if (msg.type == 'audio') {
-        const res = await requestMessage(msg);
+      const res = await requestMessage(msg);
 
-        console.log({ res });
+      if (msg.type == 'audio') {
         message = `/audio/${res.message}`;
       } else {
-        message = 'hello world';
+        message = res.message;
       }
 
       setMessages({ type: msg.type, message, sender: 'chatGPT' });
+
       setStatus('success');
     } catch (error) {
       setStatus('error');
@@ -60,7 +62,10 @@ function Home(props: GetServerSideProps) {
   return (
     <AppContext>
       <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center text-white">
-        <article className="relative max-w-xl w-full min-h-screen rounded  m-auto py-6 px-2 space-y-2 pb-24">
+        <article
+          className="relative max-w-xl w-full  h-screen overflow-y-scroll rounded  m-auto py-6 px-2 space-y-2 pb-24 "
+          ref={containerRef}
+        >
           {messages.map((item, i) => (
             <Message i={i} item={item} key={i} />
           ))}
