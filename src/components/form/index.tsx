@@ -14,6 +14,7 @@ function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
   return (
     <form
       onSubmit={(e) => {
+        console.log('clicked');
         e.preventDefault();
         if (text) {
           onSubmit({ message: text, type: 'text', sender: 'me' });

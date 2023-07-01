@@ -2,7 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import dotenv from 'dotenv';
 import generateVoice from '@/controls/generateVoice';
-
+import fs from 'fs/promises';
+import path from 'path';
 dotenv.config();
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
@@ -16,10 +17,11 @@ export default async function handler(
   console.log({ message });
   try {
     if (type == 'audio') {
-      const voiceResponse = await generateVoice('Hey Mahdi how are you ?');
+      const file = await generateVoice(message);
+
       //@ts-ignore
 
-      res.status(200).json({ type, message: voiceResponse });
+      res.status(200).json({ type, message: file });
     }
 
     if (type == 'text') {

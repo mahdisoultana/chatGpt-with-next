@@ -10,9 +10,9 @@ function AppContext({ children }: { children: React.ReactNode }) {
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
 
-  const stopListening = React.useCallback((): void => {
+  const stopListening = React.useCallback(async () => {
+    await SpeechRecognition.stopListening();
     resetTranscript();
-    SpeechRecognition.stopListening();
   }, []);
   const startListening = React.useCallback((): void => {
     SpeechRecognition.startListening({

@@ -1,7 +1,7 @@
 import Form from '@/components/form';
 import Message from '@/components/message';
 import MessageLoading from '@/components/message/Loading';
-import AppContext, { useSpeech } from '@/context/ContextProvider';
+import AppContext from '@/context/ContextProvider';
 import { useMessages } from '@/hooks/store';
 import { Message as MessageType } from '@/hooks/types';
 import axios from 'axios';
@@ -34,17 +34,18 @@ function Home(props: GetServerSideProps) {
 
   const onSubmit = useCallback(async (msg: MessageType) => {
     setMessages(msg);
+
     try {
-      console.log(msg.transcript);
       setStatus('loading');
+
       let message = null;
+
+      console.log(msg);
       if (msg.type == 'audio') {
         const res = await requestMessage(msg);
-        console.log('🟩  api response');
-        console.log({ data: res.message });
-        const blob = new Blob([res.message], { type: 'audio/mpeg' });
-        const url = URL.createObjectURL(blob);
-        message = url;
+
+        console.log({ res });
+        message = `/audio/${res.message}`;
       } else {
         message = 'hello world';
       }
@@ -73,7 +74,34 @@ function Home(props: GetServerSideProps) {
     </AppContext>
   );
 }
+import fs from 'fs';
+import path from 'path';
+
+// directory path
+const dir = 'public/audio';
+
+const deleteAudioFolder = () => {
+  // delete directory recursively
+  fs.rmdir(dir, { recursive: true }, (err: any) => {
+    if (err) {
+      throw err;
+    }
+    console.log(`${dir} is deleted!`);
+    fs.mkdir(dir, (err) => {
+      console.log(`${dir} is created!`);
+    });
+  });
+};
+
 export async function getServerSideProps() {
+  if (fs.existsSync(dir)) {
+    deleteAudioFolder();
+  } else {
+    fs.mkdir(dir, (err) => {
+      console.log(`${dir} is initialized !`);
+    });
+  }
+
   return {
     props: {
       response: 'Hello',

@@ -11,9 +11,13 @@ function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
   const { startListening, stopListening, listening, transcript } = useSpeech();
 
   React.useEffect(() => {
-    if (listening) MsgRef.current = transcript;
+    if (listening) {
+      MsgRef.current = transcript;
+    } else {
+      MsgRef.current = '';
+    }
   }, [transcript]);
-
+  console.log(MsgRef.current);
   const { status, startRecording, stopRecording } = useReactMediaRecorder({
     audio: true,
 

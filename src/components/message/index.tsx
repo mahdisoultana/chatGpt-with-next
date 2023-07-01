@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Message } from '@/hooks/types';
 import Image from 'next/image';
+import ReactAudioPlayer from 'react-audio-player';
 function Message({ i, item }: { i: number; item: Message }) {
   const isMe = (i: 'me' | 'chatGPT') => i == 'me';
   const order = {
@@ -26,6 +27,12 @@ function Message({ i, item }: { i: number; item: Message }) {
           {item.message}
         </p>
       ) : (
+        // <ReactAudioPlayer
+        //   src={item.message}
+        //   autoPlay
+        //   controls
+        //   className={`${isMe(item.sender) ? order.left : order.right}`}
+        // />
         <audio
           preload="metadata"
           controls

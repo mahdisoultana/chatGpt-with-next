@@ -1,5 +1,7 @@
 import axios from 'axios';
 const ELEVEN_LAB_API_KEY = process.env.ELEVEN_LAB_API_KEY;
+import fs from 'fs';
+import path from 'path';
 
 async function generateVoice(message: string) {
   try {
@@ -20,7 +22,12 @@ async function generateVoice(message: string) {
         'xi-api-key': `${API_KEY}`, // Set the API key in the headers.
       },
       data: {
-        text: message, // Pass in the inputText as the text to be converted to speech.
+        text: message || 'Hi  how are you ?',
+        model_id: 'eleven_monolingual_v1',
+        voice_settings: {
+          stability: 0,
+          similarity_boost: 0,
+        }, // Pass in the inputText as the text to be converted to speech.
       },
       responseType: 'arraybuffer', // Set the responseType to arraybuffer to receive binary data as response.
     };
@@ -30,8 +37,16 @@ async function generateVoice(message: string) {
     const speechDetails = await axios.request(options);
 
     // Return the binary audio data received from the API response.
+    const file = Math.random().toString(36).substring(7);
+    fs.writeFile(
+      path.join('public', 'audio', `${file}.mp3`),
+      speechDetails.data,
+      () => {
+        console.log('File written successfully');
+      },
+    );
 
-    return speechDetails.data;
+    return `${file}.mp3`;
   } catch (error) {
     console.log({ error });
   }
