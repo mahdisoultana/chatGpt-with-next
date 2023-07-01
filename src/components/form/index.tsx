@@ -9,7 +9,7 @@ const ButtonRecorder = dynamic(() => import('@/components/ButtonRecorder'), {
 });
 
 function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
-  const [text, setText] = useState('dummy');
+  const [text, setText] = useState('what is your name ?');
 
   return (
     <form

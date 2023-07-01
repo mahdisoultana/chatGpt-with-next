@@ -21,7 +21,7 @@ async function generateAnswer(message: string) {
     generatePrompt(answer, role);
     console.log({ prompt });
 
-    return answer || 'can you repeat please ?';
+    return answer || 'what  ?';
   } catch (error) {
     console.error('Error:', error);
     return 'error was found on generateAnswer';

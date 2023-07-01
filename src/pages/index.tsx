@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import Form from '@/components/form';
 import Message from '@/components/message';
 import MessageLoading from '@/components/message/Loading';
@@ -32,7 +32,7 @@ function Home(props: GetServerSideProps) {
   const { messages, setMessages } = useMessages();
   const containerRef = React.useRef<any>(null);
   const [status, setStatus] = useState<StatusType>('idle');
-  useEffect(() => {
+  useLayoutEffect(() => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   }, [status]);
   const onSubmit = useCallback(async (msg: MessageType) => {

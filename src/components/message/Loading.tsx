@@ -19,10 +19,10 @@ function MessageLoading() {
           opacity: 1,
           y: 0,
           transition: {
-            delay: 1,
+            delay: 0.3,
           },
         },
-        initial: { opacity: 0, y: -5 },
+        initial: { opacity: 0, y: -1 },
         exit: { opacity: 0, y: -5 },
       }}
       className="flex  justify-end  items-start "
