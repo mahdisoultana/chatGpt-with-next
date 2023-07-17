@@ -1,14 +1,14 @@
-import { motion } from 'framer-motion';
 import { Message } from '@/hooks/types';
+import { motion } from 'framer-motion';
 import Image from 'next/image';
-import ReactAudioPlayer from 'react-audio-player';
+import Markdown from './Markdown';
 function Message({ i, item }: { i: number; item: Message }) {
   const isMe = (i: 'me' | 'chatGPT') => i == 'me';
   const order = {
     right: ' rounded-tr-none',
     left: ' rounded-tl-none order-1',
   };
-
+  console.log({ type: item.type });
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -19,20 +19,14 @@ function Message({ i, item }: { i: number; item: Message }) {
       key={i}
     >
       {item.type == 'text' ? (
-        <p
+        <div
           className={` ${
             isMe(item.sender) ? order.left : order.right
           } rounded-xl pb-4 text-sm tracking-wide    p-4 py-2  bg-gray-800`}
         >
-          {item.message}
-        </p>
+          <Markdown>{item.message}</Markdown>
+        </div>
       ) : (
-        // <ReactAudioPlayer
-        //   src={item.message}
-        //   autoPlay
-        //   controls
-        //   className={`${isMe(item.sender) ? order.left : order.right}`}
-        // />
         <audio
           preload="metadata"
           controls

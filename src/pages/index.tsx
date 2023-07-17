@@ -1,4 +1,3 @@
-import React, { useLayoutEffect } from 'react';
 import Form from '@/components/form';
 import Message from '@/components/message';
 import MessageLoading from '@/components/message/Loading';
@@ -7,9 +6,12 @@ import { useMessages } from '@/hooks/store';
 import { Message as MessageType } from '@/hooks/types';
 import axios from 'axios';
 import { AnimatePresence } from 'framer-motion';
+import fs from 'fs';
 import { GetServerSideProps } from 'next';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
+// directory path
+const dir = 'public/audio';
 async function requestMessage(request: MessageType) {
   let res = null;
   if (request.type == 'audio') {
@@ -27,12 +29,29 @@ async function requestMessage(request: MessageType) {
   // {type: 'audio', text: 'hello Matthew how are you', audio:vaule}
   return res.data;
 }
+async function requestMessage2(request: MessageType) {
+  let res = null;
+  if (request.type == 'audio') {
+    res = await axios.post('/api/chat', {
+      message: request.transcript,
+      type: 'audio',
+    });
+  } else {
+    res = await axios.post('/api/chat', {
+      message: request.message,
+      type: 'text',
+    });
+  }
+
+  // {type: 'audio', text: 'hello Matthew how are you', audio:vaule}
+  return res.data;
+}
 type StatusType = 'idle' | 'loading' | 'error' | 'success';
 function Home(props: GetServerSideProps) {
   const { messages, setMessages } = useMessages();
   const containerRef = React.useRef<any>(null);
   const [status, setStatus] = useState<StatusType>('idle');
-  useLayoutEffect(() => {
+  useEffect(() => {
     containerRef.current.scrollTop = containerRef.current.scrollHeight;
   }, [status]);
   const onSubmit = useCallback(async (msg: MessageType) => {
@@ -43,47 +62,49 @@ function Home(props: GetServerSideProps) {
 
       let message = null;
 
-      const res = await requestMessage(msg);
+      // const res = await requestMessage(msg);
+      const res = await requestMessage2(msg);
 
-      if (msg.type == 'audio') {
+      if (res.type == 'audio') {
+        console.log('inside audio 😊😊😊😊');
+        console.log({ res });
         message = `/audio/${res.message}`;
       } else {
         message = res.message;
       }
 
-      setMessages({ type: msg.type, message, sender: 'chatGPT' });
+      setMessages({ type: res.type || 'text', message, sender: 'chatGPT' });
 
       setStatus('success');
     } catch (error) {
       setStatus('error');
     }
   }, []);
-
+  console.log(messages);
   return (
     <AppContext>
-      <div className="min-h-screen w-full bg-gray-900 flex items-center justify-center text-white">
-        <article
-          className="relative max-w-xl w-full  h-screen overflow-y-scroll rounded  m-auto py-6 px-2 space-y-2 pb-24 "
-          ref={containerRef}
-        >
-          {messages.map((item, i) => (
-            <Message i={i} item={item} key={i} />
-          ))}
+      <div className="min-h-screen   w-full bg-gray-900  h-screen overflow-y-auto flex items-start justify-center text-white  ">
+        <article className="relative max-w-xl w-full h-full  rounded  m-auto py-6 pb-0 flex flex-col justify-between ">
+          <div
+            className="space-y-3   px-2 max-h-[86vh] overflow-auto pb-4"
+            ref={containerRef}
+          >
+            {messages.map((item, i) => (
+              <Message i={i} item={item} key={i} />
+            ))}
+            <AnimatePresence>
+              {status == 'loading' && <MessageLoading />}
+            </AnimatePresence>
+          </div>
 
-          <AnimatePresence>
-            {status == 'loading' && <MessageLoading />}
-          </AnimatePresence>
-          <Form onSubmit={onSubmit} />
+          <div className="flex-shrink-0">
+            <Form onSubmit={onSubmit} />
+          </div>
         </article>
       </div>
     </AppContext>
   );
 }
-import fs from 'fs';
-import path from 'path';
-
-// directory path
-const dir = 'public/audio';
 
 const deleteAudioFolder = () => {
   // delete directory recursively

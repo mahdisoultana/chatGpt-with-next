@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Configuration, OpenAIApi } from 'openai';
 
 const configuration = new Configuration({
@@ -19,7 +18,7 @@ async function generateAnswer(message: string) {
     answer = answer.replaceAll(/:/gi, '');
 
     generatePrompt(answer, role);
-    console.log({ prompt });
+    // console.log({ prompt });
 
     return answer || 'what  ?';
   } catch (error) {

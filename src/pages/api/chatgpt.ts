@@ -1,10 +1,7 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import axios from 'axios';
-import dotenv from 'dotenv';
-import generateVoice from '@/controls/generateVoice';
-import fs from 'fs/promises';
-import path from 'path';
 import generateAnswer from '@/controls/generateAnswer';
+import generateVoice from '@/controls/generateVoice';
+import dotenv from 'dotenv';
+import { NextApiRequest, NextApiResponse } from 'next';
 dotenv.config();
 
 export default async function handler(

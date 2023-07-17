@@ -21,7 +21,7 @@ function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
           setText('');
         }
       }}
-      className="fixed bottom-0 left-0 bg-gray-100 text-gray-900 h-[60px] w-full flex items-center xl:rounded-t-md overflow-hidden"
+      className="bg-gray-100 text-gray-900 h-[60px] w-full flex items-center xl:rounded-t-md overflow-hidden"
     >
       <input
         className="w-full outline-none  h-full bg-gray-100  p-4 text-lg"
@@ -32,7 +32,7 @@ function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
         <AnimatePresence>
           {text.length > 0 ? (
             <Slide key={1}>
-              <button className="w-full h-full flex items-center justify-center text-green-500 text-3xl">
+              <button className="w-full h-full flex items-center justify-center text-blue-700 text-3xl">
                 <IoSend />
               </button>
             </Slide>

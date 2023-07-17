@@ -1,10 +1,11 @@
 import axios from 'axios';
-const ELEVEN_LAB_API_KEY = process.env.ELEVEN_LAB_API_KEY;
 import fs from 'fs';
 import path from 'path';
+const ELEVEN_LAB_API_KEY = process.env.ELEVEN_LAB_API_KEY;
 
 async function generateVoice(message: string) {
   try {
+    console.log({ message }, '😊😊😊😊');
     // Set the API key for ElevenLabs API.
     // Do not use directly. Use environment variables.
     const API_KEY = ELEVEN_LAB_API_KEY;
