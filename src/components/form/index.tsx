@@ -8,7 +8,13 @@ const ButtonRecorder = dynamic(() => import('@/components/ButtonRecorder'), {
   ssr: false,
 });
 
-function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
+function Form({
+  onSubmit,
+  className = '',
+}: {
+  className: string;
+  onSubmit: (msg: Message) => void;
+}) {
   const [text, setText] = useState('what is your name ?');
 
   return (
@@ -21,10 +27,10 @@ function Form({ onSubmit }: { onSubmit: (msg: Message) => void }) {
           setText('');
         }
       }}
-      className="bg-gray-100 text-gray-900 h-[60px] w-full flex items-center xl:rounded-t-md overflow-hidden"
+      className={`${className} text-white h-[50px] w-full flex items-center xl:rounded-md overflow-hidden`}
     >
       <input
-        className="w-full outline-none  h-full bg-gray-100  p-4 text-lg"
+        className="w-full outline-none  h-full  bg-transparent   p-4 text-lg"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />

@@ -1,8 +1,14 @@
-import 'regenerator-runtime/runtime';
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import AppContext from '@/context/ContextProvider';
+import 'regenerator-runtime/runtime';
 
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Component {...pageProps} />
+      <ToastContainer />
+    </>
+  );
 }
