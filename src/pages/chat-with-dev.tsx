@@ -97,7 +97,7 @@ function ChatWithDev(props: GetServerSideProps) {
           </div>
 
           <div className="flex-shrink-0">
-            <Form onSubmit={onSubmit} className="bg-gray-100  text-black" />
+            <Form onSubmit={onSubmit} className="bg-gray-100    text-black" />
           </div>
         </article>
       </div>

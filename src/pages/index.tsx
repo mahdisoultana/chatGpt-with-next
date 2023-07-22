@@ -99,7 +99,7 @@ function Home(props: GetServerSideProps) {
           <div className="flex-shrink-0 pb-4">
             <Form
               onSubmit={onSubmit}
-              className="bg-gray-600/50 font-light text-white"
+              className="bg-gray-600/50 font-light text-white focus:border-gray-100"
             />
           </div>
         </article>

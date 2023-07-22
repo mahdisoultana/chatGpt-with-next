@@ -27,7 +27,7 @@ function Form({
           setText('');
         }
       }}
-      className={`${className} text-white h-[50px] w-full flex items-center xl:rounded-md overflow-hidden`}
+      className={`${className} h-[50px] w-full flex items-center xl:rounded-md overflow-hidden`}
     >
       <input
         className="w-full outline-none  h-full  bg-transparent   p-4 text-lg"
