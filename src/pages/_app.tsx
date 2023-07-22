@@ -9,7 +9,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>omic features demo created by MahdiSoultana and gabriel</title>
+        <title>
+          Omics Features Project: Crafted by Mahdi Soultana 😊, Guided by
+          Gabriel, Powered by Next.js
+        </title>
+        <meta
+          name="description"
+          content="Introducing the 'Omics Features Project' by dev Mahdi Soultana, with guidance from expert Richman Gabriel . Utilizing Next.js, it revolutionizes 'Omics' analysis for researchers—efficient, scalable, and user-friendly. Explore genomics and proteomics data like never before!"
+        />
       </Head>
       <Component {...pageProps} />
       <ToastContainer />
