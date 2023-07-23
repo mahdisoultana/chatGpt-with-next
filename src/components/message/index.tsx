@@ -8,7 +8,7 @@ function Message({ i, item }: { i: number; item: Message }) {
     right: ' rounded-tr-none',
     left: ' rounded-tl-none order-1',
   };
-  console.log({ type: item.type });
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -22,7 +22,7 @@ function Message({ i, item }: { i: number; item: Message }) {
         <div
           className={` ${
             isMe(item.sender) ? order.left : order.right
-          } rounded-xl pb-4 text-sm tracking-wide    p-4 py-2  bg-gray-800`}
+          } rounded-xl pb-2 text-xs tracking-wide    p-3 py-2  bg-gray-800`}
         >
           <Markdown>{item.message}</Markdown>
         </div>
@@ -41,7 +41,7 @@ function Message({ i, item }: { i: number; item: Message }) {
         </audio>
       )}
       <span
-        className={` block w-10  h-10 ${
+        className={` block w-8  h-8 ${
           isMe(item.sender) ? 'rounded-md' : 'rounded-full'
         }  flex-shrink-0 mx-2`}
       >

@@ -15,7 +15,7 @@ export default function Document() {
         ></link>
       </Head>
 
-      <body>
+      <body className="w-[100vw] overflow-x-hidden">
         <Main />
         <NextScript />
       </body>

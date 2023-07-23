@@ -1,10 +1,9 @@
 import { useSpeech } from '@/context/ContextProvider';
 import { Message } from '@/hooks/types';
 import { motion } from 'framer-motion';
-import { useRef } from 'react';
+import React, { useRef } from 'react';
 import { BsFillMicFill } from 'react-icons/bs';
 import { useReactMediaRecorder } from 'react-media-recorder';
-import React from 'react';
 function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
   const urlRef = useRef('');
   const MsgRef = useRef('');
@@ -82,7 +81,7 @@ function ButtonRecorder({ onSubmit }: { onSubmit: (msg: Message) => void }) {
           </div>
         ) : (
           <motion.div layoutId="recIcon">
-            <BsFillMicFill className=" text-3xl text-blue-500 " />
+            <BsFillMicFill className=" text-xl text-sky-500 " />
           </motion.div>
         )}
       </button>

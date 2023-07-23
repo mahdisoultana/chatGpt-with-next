@@ -27,18 +27,18 @@ function Form({
           setText('');
         }
       }}
-      className={`${className} h-[50px] w-full flex items-center xl:rounded-md overflow-hidden`}
+      className={`${className} h-[40px] w-full flex items-center rounded overflow-hidden`}
     >
       <input
-        className="w-full outline-none  h-full  bg-transparent   p-4 text-lg"
+        className="w-full outline-none  h-full  bg-transparent   p-4 py-1 "
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <div className="relative w-[60px] h-[60px] flex-shrink-0 mr-2">
+      <div className="relative w-[40px] h-[40px] flex-shrink-0">
         <AnimatePresence>
           {text.length > 0 ? (
             <Slide key={1}>
-              <button className="w-full h-full flex items-center justify-center text-blue-700 text-3xl">
+              <button className="w-full h-full  flex items-center justify-center text-teal-400 text-lg">
                 <IoSend />
               </button>
             </Slide>

@@ -1,16 +1,9 @@
 import Markdown from 'markdown-to-jsx';
 import { useEffect, useState } from 'react';
-import { FaMinus, FaPlus } from 'react-icons/fa';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/one-dark'; // Choose your preferred syntax highlighting style
+import atomDark from 'react-syntax-highlighter/dist/cjs/styles/prism/atom-dark'; // Choose your preferred syntax highlighting style
 import { toast } from 'react-toastify';
-function MarkdownData({
-  children,
-  disableBtn = false,
-}: {
-  disableBtn?: boolean;
-  children: string;
-}) {
+function MarkdownEditor({ children }: { children: string }) {
   const [b, setB] = useState(false);
 
   useEffect(() => {
@@ -27,7 +20,7 @@ function MarkdownData({
 
   return b ? (
     <Markdown
-      className="w-full prose-xs  prose-pre:mt-0 prose-code:mt-0"
+      className="w-full prose-sm  prose-pre:mt-0  prose-pre:pt-0 prose-code:mt-0"
       options={options}
     >
       {children}
@@ -35,7 +28,7 @@ function MarkdownData({
   ) : null;
 }
 
-export default MarkdownData;
+export default MarkdownEditor;
 const CodeBlockRenderer = ({
   className,
   children,
@@ -79,21 +72,21 @@ const CodeBlockRenderer = ({
   };
   return (
     <div className="relative">
-      {added ? (
+      {/* {added ? (
         <button
           onClick={handleClick}
-          className="p-1  absolute -top-1 -right-1 rounded-full bg-green-500 hover:bg-red-500"
+          className="p-1  absolute top-1 right-1 rounded-full bg-green-500 hover:bg-red-500"
         >
-          <FaPlus size="8" />
+          <FaPlus size="10" />
         </button>
       ) : (
         <button
           onClick={handleClick}
           className="p-1  absolute top-1 right-1 rounded-full bg-red-500 hover:bg-green-500 "
         >
-          <FaMinus size="8" />
+          <FaMinus size="10" />
         </button>
-      )}
+      )} */}
       <SyntaxHighlighter language={language} style={atomDark}>
         {children}
       </SyntaxHighlighter>
