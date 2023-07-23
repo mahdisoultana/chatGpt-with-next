@@ -48,49 +48,55 @@ function Layout({ children }: { children: ReactNode }) {
             </p>
           </div>
         </Link>
+        <Link href="/">
+          <p className="md:ml-6  px-1 py-[2px] rounded  md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 hover:bg-gray-100/20 cursor-pointer">
+            Projects
+          </p>
+        </Link>
         <Link href="/chat-with-dev">
-          <p className="md:ml-8  p-1 rounded  md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 hover:bg-gray-100/20 cursor-pointer">
+          <p className="md:ml-4  px-1 py-[2px] rounded  md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 hover:bg-gray-100/20 cursor-pointer">
             Literature
           </p>
         </Link>
-        <Link href="/workspaces">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+        <Link href="/Assets">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Assets
           </p>
         </Link>
 
-        <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+        <Link href="/Experiments">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Experiments
           </p>
         </Link>
-        <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+        <Link href="/Graphs">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Graphs
           </p>
         </Link>
         <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Lake
           </p>
         </Link>
-        <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+
+        <Link href="/omicai">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             OmicAi
           </p>
         </Link>
-        <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+        <Link href="/Resources">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Resources
           </p>
         </Link>
-        <Link href="/chat-with-dev">
-          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+        <Link href="/help">
+          <p className="md:ml-4   md:mt-0  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Help
           </p>
         </Link>
         {/* <Link href="/chat-with-dev">
-          <p className="absolute right-2 top-1  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 p-1 hover:bg-gray-100/20 rounded cursor-pointer">
+          <p className="absolute right-2 topx-1 py-[2px]  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
             Settings
           </p>
         </Link> */}

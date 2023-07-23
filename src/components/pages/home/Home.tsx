@@ -9,7 +9,7 @@ import Main from './main';
 
 function Home() {
   return (
-    <div className=" min-h-screen   w-full   h-screen overflow-y-auto overflow-x-hidden flex items-start   text-white pt-8 relative">
+    <div className=" min-h-[90vh]   w-full   h-[94vh] overflow-y-auto overflow-x-hidden flex items-start   text-white  relative mt-8">
       <main className="flex w-full h-full ">
         <Plugins />
         <DataTreeExample />
