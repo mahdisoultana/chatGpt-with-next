@@ -9,13 +9,13 @@ export function useCreateChild({
   id: string;
 }) {
   const setSelect = useSetRecoilState(selectedAtom);
-  const item = useRecoilValue(childFamily(id));
+  let itemP = useRecoilValue(childFamily(id));
 
-  if (!item) return;
-  const { name, children } = item;
   const callback = useRecoilCallback(
     ({ set }) =>
       (item: Child, type: 'file' | 'folder') => {
+        if (!itemP) return;
+        const { name, children } = itemP;
         if (name == 'loading...') {
           if (item.type == 'folder') {
             setSelect({ folder: item.id, file: null });
