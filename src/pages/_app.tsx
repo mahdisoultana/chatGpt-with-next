@@ -2,7 +2,8 @@ import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
+import { BiWindowClose, BiWindows } from 'react-icons/bi';
 import ClipLoader from 'react-spinners/ClipLoader';
 import { ReactSVG } from 'react-svg';
 import { ToastContainer } from 'react-toastify';
@@ -34,8 +35,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
 function Layout({ children }: { children: ReactNode }) {
   return (
-    <section className="min-h-screen   w-[100vw] overflow-hidden bg-gray-900">
-      <nav className="flex group hover:border-b-gray-200/10 border border-transparent shadow shadow-gray-900    px-2  overflow-hidden items-center flex-col md:flex-row text-sm h-8 w-full  absolute top-0    bg-gray-950 z-100 ">
+    <section className="h-screen   w-[100vw] overflow-hidden bg-gray-900 flex flex-col">
+      <nav className="flex group hover:border-b-gray-200/10 border border-transparent shadow shadow-gray-900    px-2 flex-shrink-0 overflow-hidden items-center flex-col md:flex-row text-sm h-8 w-full      bg-gray-950 z-100 ">
         <Link href="/">
           <div className="cursor-pointer group    flex items-baseline  justify-center">
             <ReactSVG
@@ -95,13 +96,31 @@ function Layout({ children }: { children: ReactNode }) {
             Help
           </p>
         </Link>
-        {/* <Link href="/chat-with-dev">
-          <p className="absolute right-2 topx-1 py-[2px]  md:group-hover:block  text-xs text-gray-100     hover:text-sky-500 px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer">
-            Settings
-          </p>
-        </Link> */}
+
+        <FullWindow />
       </nav>
-      {children}
+      <div className="flex-grow flex-shrink-0">{children}</div>
     </section>
+  );
+}
+
+function FullWindow() {
+  const [full, setFull] = useState(false);
+
+  function handleClick() {
+    setFull((s) => !s);
+    if (!document.fullscreenElement) {
+      document.querySelector('#body')!.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  return (
+    <p
+      onClick={handleClick}
+      className="absolute right-5 top-2   md:group-hover:block  text-sm text-gray-100     hover:text-sky-500  px-1 py-[2px] hover:bg-gray-100/20 rounded cursor-pointer"
+    >
+      {full ? <BiWindowClose /> : <BiWindows />}
+    </p>
   );
 }

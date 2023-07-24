@@ -75,7 +75,7 @@ function CreateInput({
                 value={values.input}
                 onBlur={() => {
                   if (!dirty) {
-                    setErrors({ input: 'please rename your ' + type });
+                    setErrors({ input: 'invalid ' + type });
                   }
                 }}
                 name="input"
@@ -89,7 +89,7 @@ function CreateInput({
                     : 'border-gray-500 border text-gray-900'
                 } ${className}`}
               />
-              <p className="text-red-500 text-[8px] pl-1 pt-1  z-[3]">
+              <p className="absolute -top-1 right-8 text-white  px-2 font-bold  inline-block bg-red-500  text-[8px] pl-1 pt-1  z-[3]  ">
                 {errors.input}
               </p>
             </div>

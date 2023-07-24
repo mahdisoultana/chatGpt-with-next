@@ -9,22 +9,23 @@ function Item({ id, parentId }: { id: string; parentId: string }) {
   const createChild = useCreateChild({ id, parentId });
 
   if (!item || !createChild) return null;
-  console.log(item);
+
   const { type, children, name } = item;
 
   return (
     <li
+      className="li"
       id={id}
       style={{
         height:
           name == `rename ${type}`
-            ? '100%'
+            ? '1.5rem'
             : type == 'folder'
             ? open
               ? '100%'
               : '1.3rem'
             : '100%',
-
+        overflow: open ? 'auto' : 'hidden',
         position: 'relative',
       }}
     >

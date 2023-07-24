@@ -1,6 +1,15 @@
-import Home from '@/components/pages/home/Home';
 import fs from 'fs';
+('use client');
 
+import dynamic from 'next/dynamic';
+import { RingLoader } from 'react-spinners';
+const Home = dynamic(() => import('@/components/pages/home/Home'), {
+  loading: () => (
+    <div className="w-full h-full flex items-center justify-center">
+      <RingLoader color="white" />
+    </div>
+  ),
+});
 function index() {
   return <Home />;
 }

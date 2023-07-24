@@ -6,7 +6,7 @@ import { chatIsOpen } from '../../atoms/home';
 function Main() {
   const [isOpen, setOpen] = useRecoilState(chatIsOpen);
   return (
-    <div className="w-full max-h-screen overflow-auto relative ">
+    <div className="w-full h-[calc(100vh-35px)] overflow-auto relative  ">
       <MarkdownData>{'```jsx ' + dummyCode + '```'}</MarkdownData>
       {!isOpen && (
         <span

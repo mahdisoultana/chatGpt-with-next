@@ -82,7 +82,7 @@ function ChatWithDev(props: GetServerSideProps) {
 
   return (
     <AppContext>
-      <div className="  mt-8  w-full bg-gray-900  overflow-x-hidden  min-h-[80vh] h-[90vh] overflow-y-auto flex items-start justify-center text-white  ">
+      <div className="   w-full bg-gray-900  overflow-x-hidden h-full overflow-y-auto flex items-start justify-center text-white  ">
         <article className="relative max-w-xl w-full h-full  rounded  m-auto py-6 pb-0 flex flex-col justify-between ">
           <div
             className="space-y-3   px-2 max-h-[86vh] overflow-auto pb-4"

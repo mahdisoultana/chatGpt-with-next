@@ -5,7 +5,7 @@ import OpenEditor from './toolbar/OpenEditor';
 import Toolbar from './toolbar/Toolbar';
 function DataTreeExample() {
   return (
-    <main className="w-[300px] bg-gray-950 min-h-[94vh] flex-shrink-0">
+    <main className="w-[300px] bg-gray-950 h-full flex-shrink-0">
       <OpenEditor />
       <Toolbar />
       <ul className="h-[500px]  overflow-auto">

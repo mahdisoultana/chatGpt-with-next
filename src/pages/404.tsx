@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 function NotFound() {
   return (
-    <section className="text-center min-h-screen flex flex-col items-center  space-y-4 ">
+    <section className="text-center h-full flex flex-col items-center  space-y-4 ">
       <div className="   w-[60vh] ">
         <img src="/maintenance.png" alt="maintenance" />
       </div>

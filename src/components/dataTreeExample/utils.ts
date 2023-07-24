@@ -24,23 +24,20 @@ export const validationSchemaFile = Yup.object().shape({
   input: Yup.string()
     .min(2, 'Too Short!')
     .max(70, 'Too Long!')
-    .required('name file Required')
-    .matches(
-      /^.*\.[^.]+$/,
-      'please fill a valid name file with corresponding extension',
-    ),
+    .required('invalid')
+    .matches(/^.*\.[^.]+$/, 'invalid'),
 });
 export const validationSchemaFolder = Yup.object().shape({
   input: Yup.string()
     .min(1, 'Too Short!')
     .max(70, 'Too Long!')
-    .required('name folder Required'),
+    .required('invalid'),
 });
 
 export const validationSchemaDefault = Yup.object().shape({
   input: Yup.string()
     .min(2, 'Too Short!')
     .max(70, 'Too Long!')
-    .required('name Required')
-    .matches(/^.*\.[^.]+$/, 'please file a valid name file'),
+    .required('invalid')
+    .matches(/^.*\.[^.]+$/, 'invalid'),
 });
